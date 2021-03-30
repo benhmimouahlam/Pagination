@@ -1,20 +1,12 @@
 <?php   
-?>
+?> 
 <?PHP
+    // gerer le fichier de données:
     $etudiants = array();
     $f = fopen("elevesYm2.csv", "r");
     while($ligne = fgetcsv($f)){
-        array_push($etudiants, array($ligne[0], $ligne[1]));        
+        array_push($etudiants, array($ligne[0], $ligne[1]));   
     }
-?>
-<?php 
-    @$page=$_GET["page"];    
-    $nbr_ele_par_page = 2;
-    $n_pages = ceil(count($etudiants)/$nbr_ele_par_page);
-    $debut=($page-1)*$nbr_ele_par_page;
-    for($i=1;$i<=$n_pages;$i++){
-        echo "<a href= '?page=$i'>$i<button></a>&nbsp;";
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,15 +24,15 @@
             do{
                 $val = array(random_int(150, 850), random_int(150, 850), random_int(150, 850), random_int(150, 850));
                 $repetition = false;
-
+ 
                 if(count(array_unique($val))!=4){
                     $repetition = true;
                 }
             }while($repetition);
-        ?>
+            ?>
         <table>
             <tr>
-            <td>
+            <td>          
                 <h3>Enoncé pour <?php echo $etudiants[$etudiant][0]." ".$etudiants[$etudiant][1] ?></h3>
                 <table border=1>
                     <tr><td>Bin</td><td>Oct</td><td>Dec</td><td>Hex</td></tr>
@@ -61,6 +53,16 @@
             </td>
             </tr>
         </table>
-    <?php } ?>    
+    <?php } ?>
 </body>
+<?php 
+    @$page=$_GET["page"];    
+    $nbr_ele_par_page = 2;
+    $n_pages = ceil(count($etudiants)/$nbr_ele_par_page);
+    $lock=($page-1)*$nbr_ele_par_page;
+ 
+    for($i=1;$i<=$n_pages;$i++){
+        echo "<a href= '?page=$i'>$i<button></a>&nbsp;";
+} 
+?>
 </html>
